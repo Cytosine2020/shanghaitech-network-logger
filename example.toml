@@ -1,0 +1,19 @@
+# Uncomment and fill in your ShanghaiTech network account.
+[account]
+# username = "example"
+# password = "example"
+
+# The script will send network status to the receiver email after connecting to the internet.
+# You need to configure a working mail server to use this function.
+# Uncomment and fill in the sender and receiver email addresses.
+[email]
+# receiver = "example@example.org"
+# sender = "example@example.org"
+
+# The script checks the internet connection using the following parameters.
+# Uncomment to override the default value.
+[check]
+# probe = "http://www.bing.com"
+# tries = 3
+# timeout = 5
+# interval = 60

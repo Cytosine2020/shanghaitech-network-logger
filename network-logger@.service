@@ -1,0 +1,9 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/wifi-logger.sh /etc/wifi-logger/%i.toml
+Restart=on-abort
+
+[Install]
+WantedBy=default.target
