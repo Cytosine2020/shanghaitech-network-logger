@@ -43,12 +43,6 @@ login() {
   local success
   local error
 
-  num=$#
-  if [ "${num}" != "2" ]; then
-    echo "[ERROR   ] internal error: login wron number of parameters"
-    exit 1
-  fi
-
   result=$(curl -s -k -H "Content-Type: application/x-www-form-urlencoded" \
       -X POST --cookie "JSESSIONID=D56359E00B58C7877668AAB44B3BFE31" \
       --data "userName=${USERNAME}&password=${PASSWORD}&hasValidateCode=false&authLan=zh_CN" \
@@ -84,8 +78,8 @@ trap drop HUP INT TERM
 echo "[INFO    ] ================ [start] ================"
 
 while true; do
-	connect
-	sleep ${INTERVAL}
+  connect
+  sleep ${INTERVAL}
 done
 
 drop

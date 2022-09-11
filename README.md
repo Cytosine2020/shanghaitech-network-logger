@@ -23,7 +23,7 @@ You will need a working email server such as Postfix to send the network status.
 
 ## Enable Service
 
-Use the following commands to enable ShanghaiTech Network Logger. Replace the example with your configured file name.
+Use the following commands to enable ShanghaiTech Network Logger. Replace the example with your configuration file name.
 
 ```sh
 sudo systemctl enable network-logger@example
