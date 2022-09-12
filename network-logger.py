@@ -39,7 +39,7 @@ def main():
 
   watchdog.watchdog({
     'check': {
-      'cmd': 'curl --retry {} --connect-timeout {} {} && exit 1'.format(tries, timeout, probe),
+      'cmd': 'curl --retry {} --connect-timeout {} {}'.format(tries, timeout, probe),
       'interval': interval},
     'rise': [{
       'cmd': 'ip addr | mailx -s "[$(uname -n)] Network Reconnected" -r "{}" {}'.format(sender, receiver)}],

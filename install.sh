@@ -1,5 +1,8 @@
 #!/bin/sh
 
+git submodule init
+git submodule update
+
 if [ ! -z $(which apt) ]; then
   apt install -y curl mailutils || exit 1
 elif [ ! -z $(which yum) ]; then
