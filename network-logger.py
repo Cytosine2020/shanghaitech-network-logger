@@ -35,15 +35,17 @@ def main():
   probe = get_config('check', 'probe', default='http://www.bing.com')
   tries = get_config('check', 'tries', default=3)
   timeout = get_config('check', 'timeout', default=5)
-  interval = get_config('check', 'interval', default=60)
+  interval = get_config('check', 'interval', default=5)
 
   watchdog.watchdog({
     'check': {
       'cmd': 'curl --retry {} --connect-timeout {} {}'.format(tries, timeout, probe),
       'interval': interval},
     'rise': [{
-      'cmd': 'ip addr | mailx -s "[$(uname -n)] Network Reconnected" -r "{}" {}'.format(sender, receiver)}],
+      'args': ['username', 'ip'],
+      'cmd': 'echo "Your username is ${{username}}. Your ip is ${{ip}}" | mailx -s "[$(uname -n)] Network Reconnected" -r "{} ($(uname -n))" {}'.format(sender, receiver)}],
     'low': [{
+      'ret': ['username', 'ip'],
       'cmd': '''
         result=$(curl -k -H "Content-Type: application/x-www-form-urlencoded" \\
           -X POST --cookie "JSESSIONID=D56359E00B58C7877668AAB44B3BFE31" \\
@@ -52,9 +54,10 @@ def main():
         
         success=$(echo "${{result}}" | sed "s/.*success\W*\(\w*\)\W*token.*/\\1/g")
 
-        if [ "${{success}}"x != "true"x ]; then
-          error=$(echo "${{result}}" | sed "s/.*message\W*\([^\\"]*\)\W*success.*/\\1/g")
-          echo "${{error}}"
+        if [ "${{success}}"x = "true"x ]; then
+          echo "${{result}}" | sed "s/.*\\"account\\":\s*\\"\(\w*\)\\".*\\"ip\\":\s*\\"\([0-9\.]*\)\\".*/{{\\"username\\":\\"\\1\\",\\"ip\\":\\"\\2\\"}}/g"
+        else
+          echo "${{result}}" | sed "s/.*message\W*\([^\\"]*\)\W*success.*/\\1/g"
           exit 1
         fi
       '''.format(username, password)}]
