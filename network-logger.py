@@ -43,7 +43,7 @@ def main():
       'interval': interval},
     'rise': [{
       'args': ['username', 'ip'],
-      'cmd': 'echo "Your username is ${{username}}. Your ip is ${{ip}}" | mailx -s "[$(uname -n)] Network Reconnected" -r "{} ($(uname -n))" {}'.format(sender, receiver)}],
+      'cmd': 'echo "Your username is ${{username}}, ip is ${{ip}}." | mailx -s "[$(uname -n)] Network Reconnected" -r "{} ($(uname -n))" {}'.format(sender, receiver)}],
     'low': [{
       'ret': ['username', 'ip'],
       'cmd': '''
