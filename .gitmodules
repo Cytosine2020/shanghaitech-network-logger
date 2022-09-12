@@ -1,0 +1,3 @@
+[submodule "watchdog"]
+	path = watchdog
+	url = git@github.com:Cytosine2020/watchdog.git
