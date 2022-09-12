@@ -35,7 +35,7 @@ def main():
   probe = get_config('check', 'probe', default='http://www.bing.com')
   tries = get_config('check', 'tries', default=3)
   timeout = get_config('check', 'timeout', default=5)
-  interval = get_config('check', 'interval', default=5)
+  interval = get_config('check', 'interval', default=60)
 
   watchdog.watchdog({
     'check': {
